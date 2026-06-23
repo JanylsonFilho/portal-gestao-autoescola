@@ -7,7 +7,7 @@
 # Root scratch and generated files
 node_modules
 dist
-
+docs
 # App-specific dependencies and builds
 portal-gestao-autoescola-backend/node_modules
 portal-gestao-autoescola-backend/dist
