@@ -1,0 +1,473 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-transparent;
+  }
+
+  :root {
+    --bg-page: #2c2a21;
+    --bg-page-deep: #1f1d17;
+    --bg-sidebar: rgba(39, 37, 29, 0.92);
+    --bg-panel: rgba(73, 69, 58, 0.74);
+    --bg-panel-strong: rgba(78, 73, 61, 0.88);
+    --bg-panel-soft: rgba(58, 55, 46, 0.82);
+    --bg-panel-deep: #323028;
+    --bg-well: #2b2922;
+    --bg-input: #26231d;
+    --border-soft: rgba(132, 121, 82, 0.34);
+    --border-strong: rgba(177, 160, 100, 0.42);
+    --text-primary: #f7f1dd;
+    --text-secondary: #c8bea0;
+    --text-muted: #a89f84;
+    --accent-gold: #f1d348;
+    --accent-gold-soft: #b89a32;
+    --accent-blue: #7ea9ff;
+    --accent-purple: #b18ae9;
+    --accent-green: #52c88c;
+    --accent-yellow: #d4bc4a;
+    background: var(--bg-page-deep);
+  }
+
+  body {
+    @apply min-h-screen bg-ink-900 text-zinc-100 antialiased;
+    font-family: "Segoe UI", "Trebuchet MS", system-ui, sans-serif;
+    background-image:
+      radial-gradient(circle at top left, rgba(182, 156, 63, 0.16), transparent 20%),
+      radial-gradient(circle at bottom right, rgba(143, 108, 43, 0.14), transparent 18%),
+      linear-gradient(180deg, var(--bg-page) 0%, var(--bg-page-deep) 100%);
+    color: var(--text-primary);
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  button,
+  input,
+  textarea {
+    @apply outline-none;
+  }
+
+  ::selection {
+    background: rgba(250, 204, 21, 0.35);
+    color: #fff7d4;
+  }
+}
+
+@layer components {
+  .premium-panel {
+    @apply rounded-[28px] shadow-[0_24px_60px_rgba(0,0,0,0.26)];
+    border: 1px solid var(--border-soft);
+    background:
+      linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-panel-soft) 100%);
+  }
+
+  .premium-muted {
+    color: var(--text-secondary);
+  }
+
+  .premium-well {
+    border: 1px solid rgba(111, 102, 72, 0.32);
+    background: linear-gradient(180deg, rgba(48, 45, 37, 0.96) 0%, rgba(41, 38, 31, 0.98) 100%);
+  }
+
+  .premium-metric {
+    border: 1px solid var(--border-soft);
+    background: linear-gradient(180deg, rgba(79, 75, 64, 0.76) 0%, rgba(67, 63, 53, 0.92) 100%);
+  }
+
+  .premium-metric-highlight {
+    border: 1px solid rgba(214, 181, 65, 0.52);
+    background: linear-gradient(180deg, #f2d64f 0%, #ebc93d 100%);
+    color: #262015;
+  }
+
+  .premium-badge-blue {
+    color: var(--accent-blue);
+  }
+
+  .premium-badge-purple {
+    color: var(--accent-purple);
+  }
+
+  .premium-badge-green {
+    color: var(--accent-green);
+  }
+
+  .premium-badge-yellow {
+    color: var(--accent-yellow);
+  }
+
+  .public-dashboard-print {
+    display: none;
+  }
+
+  .pdf-page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 14mm 12mm;
+    color: #f7f1dd;
+    background:
+      radial-gradient(circle at top center, rgba(214, 181, 65, 0.18), transparent 24%),
+      linear-gradient(180deg, #161411 0%, #0d0d0c 100%);
+  }
+
+  .pdf-hero {
+    border: 1px solid rgba(214, 181, 65, 0.34);
+    border-radius: 22px;
+    padding: 18px 22px;
+    background:
+      radial-gradient(circle at top, rgba(214, 181, 65, 0.16), transparent 38%),
+      linear-gradient(180deg, rgba(36, 31, 24, 0.98) 0%, rgba(22, 20, 17, 0.98) 100%);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+  }
+
+  .pdf-logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(214, 181, 65, 0.3);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.98);
+    padding: 10px 16px;
+  }
+
+  .pdf-hero-copy {
+    margin-top: 18px;
+  }
+
+  .pdf-kicker {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(214, 181, 65, 0.4);
+    border-radius: 999px;
+    padding: 7px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: #e7c75b;
+    background: rgba(104, 83, 25, 0.16);
+  }
+
+  .pdf-hero-copy h1 {
+    margin-top: 18px;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #fffdf7;
+  }
+
+  .pdf-hero-copy p {
+    margin-top: 10px;
+    max-width: 640px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255, 250, 235, 0.74);
+  }
+
+  .pdf-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .pdf-summary-card {
+    min-height: 112px;
+    border: 1px solid rgba(214, 181, 65, 0.22);
+    border-radius: 18px;
+    padding: 16px;
+    background:
+      linear-gradient(180deg, rgba(34, 31, 26, 0.98) 0%, rgba(21, 19, 16, 0.98) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  .pdf-summary-card-highlight {
+    border-color: rgba(214, 181, 65, 0.45);
+    background:
+      radial-gradient(circle at top left, rgba(214, 181, 65, 0.2), transparent 34%),
+      linear-gradient(180deg, rgba(54, 43, 20, 0.98) 0%, rgba(30, 25, 17, 0.98) 100%);
+  }
+
+  .pdf-summary-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 248, 224, 0.56);
+  }
+
+  .pdf-summary-value {
+    display: block;
+    margin-top: 14px;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #fffdf7;
+  }
+
+  .pdf-summary-card-highlight .pdf-summary-value {
+    color: #f2d64f;
+  }
+
+  .pdf-section {
+    margin-top: 16px;
+    border: 1px solid rgba(214, 181, 65, 0.2);
+    border-radius: 22px;
+    padding: 18px;
+    background:
+      radial-gradient(circle at top right, rgba(214, 181, 65, 0.1), transparent 26%),
+      linear-gradient(180deg, rgba(31, 28, 24, 0.98) 0%, rgba(19, 18, 16, 0.98) 100%);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.25);
+  }
+
+  .pdf-section-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .pdf-section-head h2 {
+    margin-top: 12px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fffdf7;
+  }
+
+  .pdf-page-indicator {
+    flex-shrink: 0;
+    border: 1px solid rgba(214, 181, 65, 0.26);
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: rgba(255, 248, 224, 0.78);
+    background: rgba(214, 181, 65, 0.08);
+  }
+
+  .pdf-chart-card {
+    border: 1px solid rgba(214, 181, 65, 0.16);
+    border-radius: 18px;
+    padding: 16px;
+    background: linear-gradient(180deg, rgba(18, 18, 17, 0.98) 0%, rgba(24, 21, 17, 0.98) 100%);
+  }
+
+  .pdf-chart-grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .pdf-chart-item {
+    display: grid;
+    grid-template-columns: 88px 1fr 48px;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pdf-chart-lesson {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255, 248, 224, 0.72);
+  }
+
+  .pdf-chart-track {
+    position: relative;
+    overflow: hidden;
+    height: 12px;
+    border: 1px solid rgba(214, 181, 65, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .pdf-chart-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #b18a1f 0%, #f0c233 48%, #f7df7a 100%);
+    box-shadow: 0 0 18px rgba(240, 194, 51, 0.3);
+  }
+
+  .pdf-chart-value {
+    text-align: right;
+    font-size: 13px;
+    font-weight: 800;
+    color: #f0c233;
+  }
+
+  .pdf-evaluation-stack {
+    display: grid;
+    gap: 14px;
+  }
+
+  .pdf-evaluation-card {
+    border: 1px solid rgba(214, 181, 65, 0.18);
+    border-radius: 18px;
+    padding: 16px;
+    background:
+      radial-gradient(circle at top center, rgba(214, 181, 65, 0.08), transparent 28%),
+      linear-gradient(180deg, rgba(34, 29, 23, 0.98) 0%, rgba(22, 20, 17, 0.98) 100%);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .pdf-evaluation-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .pdf-evaluation-head h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fffdf7;
+  }
+
+  .pdf-evaluation-head p {
+    margin-top: 6px;
+    font-size: 13px;
+    color: rgba(255, 248, 224, 0.62);
+  }
+
+  .pdf-evaluation-average {
+    flex-shrink: 0;
+    border: 1px solid rgba(214, 181, 65, 0.28);
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #f0c233;
+    background: rgba(214, 181, 65, 0.08);
+  }
+
+  .pdf-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .pdf-score-card {
+    border: 1px solid rgba(214, 181, 65, 0.12);
+    border-radius: 14px;
+    padding: 12px;
+    background: rgba(15, 15, 14, 0.58);
+  }
+
+  .pdf-score-card span {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 248, 224, 0.46);
+  }
+
+  .pdf-score-card strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #f0c233;
+  }
+
+  .pdf-observation-card {
+    margin-top: 12px;
+    border: 1px solid rgba(214, 181, 65, 0.12);
+    border-radius: 14px;
+    padding: 12px 14px;
+    background: rgba(15, 15, 14, 0.44);
+  }
+
+  .pdf-observation-card span {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 248, 224, 0.46);
+  }
+
+  .pdf-observation-card p {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255, 248, 224, 0.82);
+  }
+
+  .pdf-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(214, 181, 65, 0.16);
+    font-size: 11px;
+    color: rgba(255, 248, 224, 0.54);
+  }
+}
+
+@media screen {
+  .public-dashboard-screen {
+    display: block;
+  }
+
+  .public-dashboard-print {
+    display: none;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: #0d0d0c !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .public-dashboard-print,
+  .public-dashboard-print * {
+    visibility: visible;
+  }
+
+  .public-dashboard-screen {
+    display: none !important;
+  }
+
+  .public-dashboard-print {
+    display: block !important;
+    background: #0d0d0c;
+  }
+
+  .pdf-page {
+    break-after: page;
+    page-break-after: always;
+    box-shadow: none;
+  }
+
+  .pdf-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}

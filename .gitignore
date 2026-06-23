@@ -1,0 +1,18 @@
+# Common local files
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Root scratch and generated files
+node_modules
+dist
+
+# App-specific dependencies and builds
+portal-gestao-autoescola-backend/node_modules
+portal-gestao-autoescola-backend/dist
+portal-gestao-autoescola-backend/.env
+portal-gestao-autoescola-backend/database/schema.sql
+portal-gestao-autoescola-frontend/node_modules
+portal-gestao-autoescola-frontend/dist
+portal-gestao-autoescola-frontend/tsconfig.tsbuildinfo
