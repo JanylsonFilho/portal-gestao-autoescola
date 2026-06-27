@@ -2,11 +2,11 @@ import { z } from "zod"
 
 const localPhoneSchema = z
   .string()
-  .regex(/^\d{11}$/, "Informe os 11 digitos do WhatsApp com DDD")
+  .regex(/^\d{11}$/, "Informe os 11 dígitos do WhatsApp com DDD")
 
 const totalClassesSchema = z
   .number({ invalid_type_error: "Informe a quantidade total de aulas" })
-  .int("A quantidade total de aulas deve ser um numero inteiro")
+  .int("A quantidade total de aulas deve ser um número inteiro")
   .min(1, "A quantidade total de aulas deve ser pelo menos 1")
 
 export const createStudentSchema = z.object({

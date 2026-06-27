@@ -2,15 +2,15 @@ import { StudentStatus } from "../enums/StudentStatus"
 import { calculateStatus } from "./calculateStatus"
 
 describe("calculateStatus", () => {
-  it("retorna Iniciando quando nao ha avaliacoes", () => {
+  it("retorna Iniciando quando não há avaliações", () => {
     expect(calculateStatus(0, 0)).toBe(StudentStatus.INICIANDO)
   })
 
-  it("retorna Atencao necessaria quando media < 5", () => {
+  it("retorna Atenção necessária quando media < 5", () => {
     expect(calculateStatus(4.9, 3)).toBe(StudentStatus.ATENCAO_NECESSARIA)
   })
 
-  it("retorna Em evolucao quando media entre 5 e 7", () => {
+  it("retorna Em evolução quando media entre 5 e 7", () => {
     expect(calculateStatus(6, 3)).toBe(StudentStatus.EM_EVOLUCAO)
   })
 

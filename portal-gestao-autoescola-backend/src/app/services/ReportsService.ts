@@ -12,7 +12,7 @@ const reportCriteria = [
   { label: "Retrovisores", key: "mirrors_score" as const },
   { label: "Sinalizacao", key: "signaling_score" as const },
   { label: "Controle emocional", key: "emotional_control_score" as const },
-  { label: "Seguranca geral", key: "general_safety_score" as const },
+  { label: "Segurança geral", key: "general_safety_score" as const },
 ]
 
 function toNumber(value: number | string): number {

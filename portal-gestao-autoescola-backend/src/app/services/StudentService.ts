@@ -45,7 +45,7 @@ export class StudentService {
     const storedWhatsapp = toStoredWhatsapp(input.whatsapp)
     const duplicated = await StudentModel.findByWhatsapp(storedWhatsapp)
     if (duplicated) {
-      throw new AppError("Ja existe aluno com esse telefone", 409)
+      throw new AppError("Já existe um aluno com esse telefone", 409)
     }
 
     return StudentModel.create({
@@ -64,17 +64,17 @@ export class StudentService {
   ): Promise<StudentSummary> {
     const student = await StudentModel.findById(studentId)
     if (!student) {
-      throw new AppError("Aluno nao localizado", 404)
+      throw new AppError("Aluno não localizado", 404)
     }
 
     if (student.instructor_id !== instructorId) {
-      throw new AppError("Voce nao pode editar este aluno", 403)
+      throw new AppError("Você não pode editar este aluno", 403)
     }
 
     const storedWhatsapp = toStoredWhatsapp(input.whatsapp)
     const duplicated = await StudentModel.findByWhatsappExceptId(storedWhatsapp, studentId)
     if (duplicated) {
-      throw new AppError("Ja existe aluno com esse telefone", 409)
+      throw new AppError("Já existe um aluno com esse telefone", 409)
     }
 
     const updated = await StudentModel.update(studentId, {
@@ -95,10 +95,10 @@ export class StudentService {
   static async getById(instructorId: number, studentId: number): Promise<StudentSummary> {
     const student = await StudentModel.findById(studentId)
     if (!student) {
-      throw new AppError("Aluno nao localizado", 404)
+      throw new AppError("Aluno não localizado", 404)
     }
     if (student.instructor_id !== instructorId) {
-      throw new AppError("Voce nao pode acessar este aluno", 403)
+      throw new AppError("Você não pode acessar este aluno", 403)
     }
     return this.buildSummary(student)
   }
@@ -106,7 +106,7 @@ export class StudentService {
   static async getPublicDashboardByWhatsapp(whatsapp: string) {
     const student = await StudentModel.findByWhatsapp(whatsapp)
     if (!student) {
-      throw new AppError("Nao encontramos o dashboard deste aluno", 404)
+      throw new AppError("Não encontramos o dashboard deste aluno", 404)
     }
 
     const instructor = await InstructorModel.findById(student.instructor_id)
@@ -120,7 +120,7 @@ export class StudentService {
     return {
       name: student.name,
       category: student.category,
-      instructor_name: instructor?.name ?? "Nao informado",
+      instructor_name: instructor?.name ?? "Não informado",
       total_classes: student.total_classes,
       evaluated_classes: evaluations.length,
       general_average: generalAverage,
@@ -210,7 +210,7 @@ export class StudentService {
 
     return {
       ...student,
-      instructor_name: instructor?.name ?? "Nao informado",
+      instructor_name: instructor?.name ?? "Não informado",
       evaluated_classes: evaluations.length,
       general_average: generalAverage,
       status,

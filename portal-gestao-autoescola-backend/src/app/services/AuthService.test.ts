@@ -18,7 +18,7 @@ describe("AuthService.login", () => {
     mockedModel.findByUsername.mockResolvedValue(null)
     await expect(
       AuthService.login({ username: "inexistente", password: "123456" }),
-    ).rejects.toThrow("Usuario ou senha incorretos")
+    ).rejects.toThrow("Usuário ou senha incorretos")
   })
 
   it("lanca erro quando a senha esta incorreta", async () => {
@@ -37,7 +37,7 @@ describe("AuthService.login", () => {
 
     await expect(
       AuthService.login({ username: "davison", password: "errada" }),
-    ).rejects.toThrow("Usuario ou senha incorretos")
+    ).rejects.toThrow("Usuário ou senha incorretos")
   })
 
   it("retorna o role do usuario autenticado", async () => {
@@ -85,7 +85,7 @@ describe("AuthService.createPanelUser", () => {
         category: "B",
         role: "instructor",
       }),
-    ).rejects.toThrow("Ja existe um usuario com esse login")
+    ).rejects.toThrow("Já existe um usuário com esse login")
   })
 
   it("cria um novo admin quando o login esta livre", async () => {
@@ -161,7 +161,7 @@ describe("AuthService.updatePanelUser", () => {
         },
         1,
       ),
-    ).rejects.toThrow("Ja existe um usuario com esse login")
+    ).rejects.toThrow("Já existe um usuário com esse login")
   })
 
   it("impede admin de alterar o proprio role", async () => {
@@ -188,7 +188,7 @@ describe("AuthService.updatePanelUser", () => {
         },
         1,
       ),
-    ).rejects.toThrow("Voce nao pode alterar o perfil de acesso da sua propria conta")
+    ).rejects.toThrow("Você não pode alterar o perfil de acesso da sua própria conta")
   })
 })
 

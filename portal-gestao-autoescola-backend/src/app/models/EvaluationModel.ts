@@ -41,7 +41,7 @@ export class EvaluationModel {
       ],
     )
     const created = await this.findById(result.insertId)
-    if (!created) throw new Error("Falha ao criar avaliacao")
+    if (!created) throw new Error("Falha ao criar avaliação")
     return created
   }
 

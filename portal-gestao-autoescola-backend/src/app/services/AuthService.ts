@@ -20,7 +20,7 @@ export class AuthService {
   static async createPanelUser(input: CreatePanelUserInput): Promise<PublicInstructor> {
     const existingInstructor = await InstructorModel.findByUsername(input.username)
     if (existingInstructor) {
-      throw new AppError("Ja existe um usuario com esse login", 409)
+      throw new AppError("Já existe um usuário com esse login", 409)
     }
 
     const passwordHash = await bcrypt.hash(input.password, 10)
@@ -38,12 +38,12 @@ export class AuthService {
   static async login({ username, password }: LoginInput): Promise<LoginResult> {
     const instructor = await InstructorModel.findByUsername(username)
     if (!instructor) {
-      throw new AppError("Usuario ou senha incorretos", 401)
+      throw new AppError("Usuário ou senha incorretos", 401)
     }
 
     const passwordMatch = await bcrypt.compare(password, instructor.password_hash)
     if (!passwordMatch) {
-      throw new AppError("Usuario ou senha incorretos", 401)
+      throw new AppError("Usuário ou senha incorretos", 401)
     }
 
     const token = jwt.sign({ sub: instructor.id }, env.jwt.secret, {
@@ -56,7 +56,7 @@ export class AuthService {
   static async getProfile(instructorId: number): Promise<PublicInstructor> {
     const instructor = await InstructorModel.findById(instructorId)
     if (!instructor) {
-      throw new AppError("Usuario do painel nao encontrado", 404)
+      throw new AppError("Usuário do painel não encontrado", 404)
     }
     return this.toPublic(instructor)
   }
@@ -73,16 +73,16 @@ export class AuthService {
   ): Promise<PublicInstructor> {
     const targetUser = await InstructorModel.findById(userId)
     if (!targetUser) {
-      throw new AppError("Usuario do painel nao encontrado", 404)
+      throw new AppError("Usuário do painel não encontrado", 404)
     }
 
     const usernameInUse = await InstructorModel.findByUsernameExcludingId(input.username, userId)
     if (usernameInUse) {
-      throw new AppError("Ja existe um usuario com esse login", 409)
+      throw new AppError("Já existe um usuário com esse login", 409)
     }
 
     if (userId === actorId && targetUser.role === "admin" && input.role !== "admin") {
-      throw new AppError("Voce nao pode alterar o perfil de acesso da sua propria conta", 400)
+      throw new AppError("Você não pode alterar o perfil de acesso da sua própria conta", 400)
     }
 
     const passwordHash =
@@ -99,7 +99,7 @@ export class AuthService {
     })
 
     if (!updated) {
-      throw new AppError("Nao foi possivel atualizar este usuario", 500)
+      throw new AppError("Não foi possível atualizar este usuário", 500)
     }
 
     return this.toPublic(updated)
@@ -111,12 +111,12 @@ export class AuthService {
   ): Promise<PublicInstructor> {
     const currentUser = await InstructorModel.findById(userId)
     if (!currentUser) {
-      throw new AppError("Usuario do painel nao encontrado", 404)
+      throw new AppError("Usuário do painel não encontrado", 404)
     }
 
     const usernameInUse = await InstructorModel.findByUsernameExcludingId(input.username, userId)
     if (usernameInUse) {
-      throw new AppError("Ja existe um usuario com esse login", 409)
+      throw new AppError("Já existe um usuário com esse login", 409)
     }
 
     const passwordHash =
@@ -132,7 +132,7 @@ export class AuthService {
     })
 
     if (!updated) {
-      throw new AppError("Nao foi possivel atualizar este usuario", 500)
+      throw new AppError("Não foi possível atualizar este usuário", 500)
     }
 
     return this.toPublic(updated)

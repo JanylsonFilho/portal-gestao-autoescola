@@ -23,14 +23,14 @@ export class AuthController {
 
   static async me(req: Request, res: Response): Promise<Response> {
     if (!req.instructor) {
-      throw new AppError("Sessao expirada. Entre novamente.", 401)
+      throw new AppError("Sessão expirada. Entre novamente.", 401)
     }
     return res.json(req.instructor)
   }
 
   static async updateOwnProfile(req: Request, res: Response): Promise<Response> {
     if (!req.instructor) {
-      throw new AppError("Sessao expirada. Entre novamente.", 401)
+      throw new AppError("Sessão expirada. Entre novamente.", 401)
     }
 
     const data = updateOwnProfileSchema.parse(req.body)
@@ -45,12 +45,12 @@ export class AuthController {
 
   static async updatePanelUser(req: Request, res: Response): Promise<Response> {
     if (!req.instructor) {
-      throw new AppError("Sessao expirada. Entre novamente.", 401)
+      throw new AppError("Sessão expirada. Entre novamente.", 401)
     }
 
     const userId = Number(req.params.id)
     if (!Number.isInteger(userId) || userId <= 0) {
-      throw new AppError("Usuario do painel invalido", 400)
+      throw new AppError("Usuário do painel inválido", 400)
     }
 
     const data = updatePanelUserSchema.parse(req.body)

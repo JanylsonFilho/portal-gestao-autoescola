@@ -5,7 +5,7 @@ dotenv.config()
 function required(key: string, fallback?: string): string {
   const value = process.env[key] ?? fallback
   if (value === undefined) {
-    throw new Error(`Variavel de ambiente obrigatoria nao definida: ${key}`)
+    throw new Error(`Variável de ambiente obrigatória não definida: ${key}`)
   }
   return value
 }

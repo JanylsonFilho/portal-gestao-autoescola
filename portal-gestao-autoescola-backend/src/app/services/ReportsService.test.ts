@@ -87,7 +87,7 @@ describe("ReportsService.getOverview", () => {
         signaling_score: 8,
         emotional_control_score: 6,
         general_safety_score: 7,
-        observations: "Atencao na embreagem",
+        observations: "Atenção na embreagem",
         created_at: "2026-06-10",
         updated_at: "2026-06-10",
       },

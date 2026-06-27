@@ -31,7 +31,7 @@ async function seed(): Promise<void> {
       [instructor.name, instructor.username, passwordHash, instructor.category, instructor.role],
     )
     console.log(
-      `[v0] Usuario cadastrado: ${instructor.name} (${instructor.role}, categoria ${instructor.category})`,
+      `[v0] Usuário cadastrado: ${instructor.name} (${instructor.role}, categoria ${instructor.category})`,
     )
   }
 

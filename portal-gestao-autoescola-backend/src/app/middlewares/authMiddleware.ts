@@ -15,12 +15,12 @@ export async function authMiddleware(
 ): Promise<void> {
   const authHeader = req.headers.authorization
   if (!authHeader) {
-    throw new AppError("Sessao expirada. Entre novamente.", 401)
+    throw new AppError("Sessão expirada. Entre novamente.", 401)
   }
 
   const [scheme, token] = authHeader.split(" ")
   if (scheme !== "Bearer" || !token) {
-    throw new AppError("Sessao invalida. Entre novamente.", 401)
+    throw new AppError("Sessão inválida. Entre novamente.", 401)
   }
 
   try {
@@ -28,7 +28,7 @@ export async function authMiddleware(
     const instructorId = Number(decoded.sub)
 
     if (!Number.isInteger(instructorId) || instructorId <= 0) {
-      throw new AppError("Sessao expirada. Entre novamente.", 401)
+      throw new AppError("Sessão expirada. Entre novamente.", 401)
     }
 
     const instructor = await AuthService.getProfile(instructorId)
@@ -36,6 +36,6 @@ export async function authMiddleware(
     next()
   } catch (error) {
     if (error instanceof AppError) throw error
-    throw new AppError("Sessao expirada. Entre novamente.", 401)
+    throw new AppError("Sessão expirada. Entre novamente.", 401)
   }
 }

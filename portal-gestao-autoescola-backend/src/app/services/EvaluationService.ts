@@ -14,15 +14,15 @@ export class EvaluationService {
   ): Promise<Evaluation> {
     const student = await StudentModel.findById(studentId)
     if (!student) {
-      throw new AppError("Aluno nao localizado", 404)
+      throw new AppError("Aluno não localizado", 404)
     }
     if (student.instructor_id !== instructor.id) {
-      throw new AppError("Voce nao pode registrar avaliacao para este aluno", 403)
+      throw new AppError("Você não pode registrar avaliação para este aluno", 403)
     }
 
     const alreadyExists = await EvaluationModel.existsByLessonNumber(studentId, input.lesson_number)
     if (alreadyExists) {
-      throw new AppError("Ja existe uma avaliacao cadastrada para esta aula", 409)
+      throw new AppError("Já existe uma avaliação cadastrada para esta aula", 409)
     }
 
     return EvaluationModel.create({
@@ -44,10 +44,10 @@ export class EvaluationService {
   static async listByStudent(instructor: PublicInstructor, studentId: number) {
     const student = await StudentModel.findById(studentId)
     if (!student) {
-      throw new AppError("Aluno nao localizado", 404)
+      throw new AppError("Aluno não localizado", 404)
     }
     if (student.instructor_id !== instructor.id) {
-      throw new AppError("Voce nao pode acessar este aluno", 403)
+      throw new AppError("Você não pode acessar este aluno", 403)
     }
 
     const evaluations = await EvaluationModel.findByStudent(studentId)

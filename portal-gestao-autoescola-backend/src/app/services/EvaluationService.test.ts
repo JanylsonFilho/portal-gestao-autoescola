@@ -53,7 +53,7 @@ describe("EvaluationService.create", () => {
 
     await expect(
       EvaluationService.create(instructor, 10, validInput),
-    ).rejects.toThrow("Ja existe uma avaliacao cadastrada para esta aula")
+    ).rejects.toThrow("Já existe uma avaliação cadastrada para esta aula")
   })
 
   it("impede avaliar aluno de outro instrutor", async () => {
@@ -61,7 +61,7 @@ describe("EvaluationService.create", () => {
 
     await expect(
       EvaluationService.create(instructor, 10, validInput),
-    ).rejects.toThrow("Voce nao pode registrar avaliacao para este aluno")
+    ).rejects.toThrow("Você não pode registrar avaliação para este aluno")
   })
 
   it("cria avaliacao valida", async () => {
