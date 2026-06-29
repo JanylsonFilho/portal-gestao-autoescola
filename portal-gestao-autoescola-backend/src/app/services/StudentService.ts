@@ -6,6 +6,7 @@ import { InstructorModel } from "../models/InstructorModel"
 import { StudentModel } from "../models/StudentModel"
 import { calculateAverage, roundToOneDecimal } from "../utils/calculateAverage"
 import { calculateStatus } from "../utils/calculateStatus"
+import { generatePublicToken } from "../utils/generatePublicToken"
 import type { CreateStudentInput, UpdateStudentInput } from "../validators/student.validator"
 import { StudentStatus } from "../enums/StudentStatus"
 
@@ -51,6 +52,7 @@ export class StudentService {
     return StudentModel.create({
       name: input.name,
       whatsapp: storedWhatsapp,
+      public_token: generatePublicToken(),
       total_classes: input.total_classes,
       category: instructor.category,
       instructor_id: instructor.id,
@@ -89,6 +91,9 @@ export class StudentService {
   static async listByInstructor(instructorId: number, search?: string): Promise<StudentSummary[]> {
     const students = await StudentModel.findByInstructor(instructorId, search)
     const summaries = await Promise.all(students.map((student) => this.buildSummary(student)))
+    summaries.sort(
+      (left, right) => new Date(right.created_at).getTime() - new Date(left.created_at).getTime(),
+    )
     return summaries
   }
 

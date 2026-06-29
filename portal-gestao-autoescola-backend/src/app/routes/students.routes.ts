@@ -20,3 +20,6 @@ studentsRoutes.put("/:id", asyncHandler(StudentController.update))
 // Avaliacoes vinculadas a um aluno
 studentsRoutes.post("/:studentId/evaluations", asyncHandler(EvaluationController.create))
 studentsRoutes.get("/:studentId/evaluations", asyncHandler(EvaluationController.list))
+studentsRoutes.get("/:studentId/evaluations/:evaluationId", asyncHandler(EvaluationController.getById))
+studentsRoutes.put("/:studentId/evaluations/:evaluationId", asyncHandler(EvaluationController.update))
+studentsRoutes.delete("/:studentId/evaluations/:evaluationId", asyncHandler(EvaluationController.delete))

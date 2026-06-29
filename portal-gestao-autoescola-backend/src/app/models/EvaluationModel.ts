@@ -17,6 +17,8 @@ interface CreateEvaluationData {
   observations: string | null
 }
 
+interface UpdateEvaluationData extends CreateEvaluationData {}
+
 export class EvaluationModel {
   static async create(data: CreateEvaluationData): Promise<Evaluation> {
     const [result] = await pool.query<ResultSetHeader>(
@@ -88,5 +90,55 @@ export class EvaluationModel {
       [studentId, lessonNumber],
     )
     return rows.length > 0
+  }
+
+  static async existsByLessonNumberExceptId(
+    studentId: number,
+    lessonNumber: number,
+    evaluationId: number,
+  ): Promise<boolean> {
+    const [rows] = await pool.query<RowDataPacket[]>(
+      "SELECT id FROM evaluations WHERE student_id = ? AND lesson_number = ? AND id <> ? LIMIT 1",
+      [studentId, lessonNumber, evaluationId],
+    )
+    return rows.length > 0
+  }
+
+  static async update(id: number, data: UpdateEvaluationData): Promise<Evaluation> {
+    const [result] = await pool.query<ResultSetHeader>(
+      `UPDATE evaluations
+       SET lesson_number = ?, lesson_date = ?, clutch_score = ?, gears_score = ?, parking_score = ?,
+           mirrors_score = ?, signaling_score = ?, emotional_control_score = ?, general_safety_score = ?,
+           observations = ?
+       WHERE id = ?`,
+      [
+        data.lesson_number,
+        data.lesson_date,
+        data.clutch_score,
+        data.gears_score,
+        data.parking_score,
+        data.mirrors_score,
+        data.signaling_score,
+        data.emotional_control_score,
+        data.general_safety_score,
+        data.observations,
+        id,
+      ],
+    )
+
+    if (result.affectedRows === 0) {
+      throw new Error("Falha ao atualizar avaliação")
+    }
+
+    const updated = await this.findById(id)
+    if (!updated) throw new Error("Falha ao atualizar avaliação")
+    return updated
+  }
+
+  static async delete(id: number): Promise<void> {
+    const [result] = await pool.query<ResultSetHeader>("DELETE FROM evaluations WHERE id = ?", [id])
+    if (result.affectedRows === 0) {
+      throw new Error("Falha ao excluir avaliação")
+    }
   }
 }
