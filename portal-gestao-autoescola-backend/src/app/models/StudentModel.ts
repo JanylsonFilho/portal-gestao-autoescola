@@ -15,6 +15,7 @@ interface UpdateStudentData {
   name: string
   whatsapp: string
   total_classes: number
+  category: string
 }
 
 export class StudentModel {
@@ -89,9 +90,9 @@ export class StudentModel {
   static async update(id: number, data: UpdateStudentData): Promise<Student> {
     const [result] = await pool.query<ResultSetHeader>(
       `UPDATE students
-       SET name = ?, whatsapp = ?, total_classes = ?
+       SET name = ?, whatsapp = ?, total_classes = ?, category = ?
        WHERE id = ?`,
-      [data.name, data.whatsapp, data.total_classes, id],
+      [data.name, data.whatsapp, data.total_classes, data.category, id],
     )
 
     if (result.affectedRows === 0) {

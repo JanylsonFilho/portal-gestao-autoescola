@@ -14,4 +14,5 @@ export interface StudentInput {
   name: string
   whatsapp: string
   total_classes: number
+  category: string
 }

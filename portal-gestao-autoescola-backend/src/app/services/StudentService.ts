@@ -6,6 +6,7 @@ import { InstructorModel } from "../models/InstructorModel"
 import { StudentModel } from "../models/StudentModel"
 import { calculateAverage, roundToOneDecimal } from "../utils/calculateAverage"
 import { calculateStatus } from "../utils/calculateStatus"
+import { getPublicDashboardCriteriaLabels } from "../utils/evaluationCriteria"
 import { generatePublicToken } from "../utils/generatePublicToken"
 import type { CreateStudentInput, UpdateStudentInput } from "../validators/student.validator"
 import { StudentStatus } from "../enums/StudentStatus"
@@ -54,7 +55,7 @@ export class StudentService {
       whatsapp: storedWhatsapp,
       public_token: generatePublicToken(),
       total_classes: input.total_classes,
-      category: instructor.category,
+      category: input.category,
       instructor_id: instructor.id,
     })
   }
@@ -83,6 +84,7 @@ export class StudentService {
       name: input.name,
       whatsapp: storedWhatsapp,
       total_classes: input.total_classes,
+      category: input.category,
     })
 
     return this.buildSummary(updated)
@@ -131,6 +133,7 @@ export class StudentService {
       general_average: generalAverage,
       status,
       whatsapp: toLocalWhatsappDigits(student.whatsapp),
+      criteria_labels: getPublicDashboardCriteriaLabels(student.category),
       evolution: lessonAverages.map((lesson) => ({
         lesson_number: lesson.lessonNumber,
         lesson_date: lesson.lessonDate,

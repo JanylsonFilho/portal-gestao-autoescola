@@ -64,10 +64,12 @@ export class EvaluationModel {
   }
 
   static async findByInstructor(instructorId: number): Promise<
-    Array<Evaluation & RowDataPacket & { student_name: string }>
+    Array<Evaluation & RowDataPacket & { student_name: string; category: string }>
   > {
-    const [rows] = await pool.query<Array<Evaluation & RowDataPacket & { student_name: string }>>(
-      `SELECT evaluations.*, students.name AS student_name
+    const [rows] = await pool.query<
+      Array<Evaluation & RowDataPacket & { student_name: string; category: string }>
+    >(
+      `SELECT evaluations.*, students.name AS student_name, students.category AS category
        FROM evaluations
        INNER JOIN students ON students.id = evaluations.student_id
        WHERE evaluations.instructor_id = ?

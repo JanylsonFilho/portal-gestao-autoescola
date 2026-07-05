@@ -27,7 +27,7 @@ const instructor: PublicInstructor = {
 describe("StudentService.create", () => {
   beforeEach(() => jest.clearAllMocks())
 
-  it("cria aluno com a categoria do instrutor logado", async () => {
+  it("cria aluno com a categoria escolhida no cadastro", async () => {
     generatePublicTokenSpy.mockReturnValue("token-publico-123")
     mockedStudent.create.mockResolvedValue({
       id: 10,
@@ -45,11 +45,12 @@ describe("StudentService.create", () => {
       name: "Joao",
       whatsapp: "11999999999",
       total_classes: 20,
+      category: "B",
     })
 
     expect(mockedStudent.create).toHaveBeenCalledWith(
       expect.objectContaining({
-        category: "A",
+        category: "B",
         instructor_id: 1,
         whatsapp: "5511999999999",
         public_token: "token-publico-123",
@@ -76,6 +77,7 @@ describe("StudentService.create", () => {
         name: "Joao",
         whatsapp: "85989551746",
         total_classes: 20,
+        category: "A",
       }),
     ).rejects.toThrow("Já existe um aluno com esse telefone")
   })
@@ -120,6 +122,7 @@ describe("StudentService.create", () => {
       name: "Joao Pedro",
       whatsapp: "85989551746",
       total_classes: 25,
+      category: "D",
     })
 
     expect(mockedStudent.findByWhatsappExceptId).toHaveBeenCalledWith("5585989551746", 10)
@@ -127,6 +130,7 @@ describe("StudentService.create", () => {
       name: "Joao Pedro",
       whatsapp: "5585989551746",
       total_classes: 25,
+      category: "D",
     })
     expect(result.whatsapp).toBe("5585989551746")
   })
@@ -160,6 +164,7 @@ describe("StudentService.create", () => {
         name: "Joao",
         whatsapp: "85989551746",
         total_classes: 20,
+        category: "A",
       }),
     ).rejects.toThrow("Já existe um aluno com esse telefone")
   })
@@ -216,6 +221,8 @@ describe("StudentService.getPublicDashboard", () => {
     expect(dashboard.status).toBe("Pronto para exame")
     expect(dashboard.evaluated_classes).toBe(1)
     expect(dashboard.whatsapp).toBe("11999999999")
+    expect(dashboard.criteria_labels.baliza).toBe("Postura")
+    expect(dashboard.criteria_labels.retrovisores).toBe("Equilibrio")
   })
 
   it("normaliza notas do dashboard publico quando chegam como string do MySQL", async () => {
@@ -266,6 +273,7 @@ describe("StudentService.getPublicDashboard", () => {
     expect(typeof dashboard.evaluations[0].average).toBe("number")
     expect(typeof dashboard.evaluations[0].scores.embreagem).toBe("number")
     expect(dashboard.evaluations[0].scores.embreagem).toBe(8)
+    expect(dashboard.criteria_labels.baliza).toBe("Postura")
   })
 })
 

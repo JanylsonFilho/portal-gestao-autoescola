@@ -9,16 +9,22 @@ const totalClassesSchema = z
   .int("A quantidade total de aulas deve ser um número inteiro")
   .min(1, "A quantidade total de aulas deve ser pelo menos 1")
 
+const studentCategorySchema = z.enum(["A", "B", "D"], {
+  errorMap: () => ({ message: "Selecione uma categoria válida entre A, B e D" }),
+})
+
 export const createStudentSchema = z.object({
   name: z.string().min(2, "Informe o nome do aluno"),
   whatsapp: localPhoneSchema,
   total_classes: totalClassesSchema,
+  category: studentCategorySchema,
 })
 
 export const updateStudentSchema = z.object({
   name: z.string().min(2, "Informe o nome do aluno"),
   whatsapp: localPhoneSchema,
   total_classes: totalClassesSchema,
+  category: studentCategorySchema,
 })
 
 export type CreateStudentInput = z.infer<typeof createStudentSchema>
