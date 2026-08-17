@@ -7,7 +7,6 @@ import { StudentModel } from "../models/StudentModel"
 import { calculateAverage, roundToOneDecimal } from "../utils/calculateAverage"
 import { calculateStatus } from "../utils/calculateStatus"
 import { getPublicDashboardCriteriaLabels } from "../utils/evaluationCriteria"
-import { generatePublicToken } from "../utils/generatePublicToken"
 import type { CreateStudentInput, UpdateStudentInput } from "../validators/student.validator"
 import { StudentStatus } from "../enums/StudentStatus"
 
@@ -53,7 +52,6 @@ export class StudentService {
     return StudentModel.create({
       name: input.name,
       whatsapp: storedWhatsapp,
-      public_token: generatePublicToken(),
       total_classes: input.total_classes,
       category: input.category,
       instructor_id: instructor.id,

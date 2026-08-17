@@ -2,7 +2,6 @@ export interface Student {
   id: number
   name: string
   whatsapp: string
-  public_token: string
   category: string
   instructor_id: number
   total_classes: number

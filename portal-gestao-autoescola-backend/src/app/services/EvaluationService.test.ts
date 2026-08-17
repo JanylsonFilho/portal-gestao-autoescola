@@ -24,7 +24,6 @@ const baseStudent = {
   id: 10,
   name: "Joao",
   whatsapp: "11999999999",
-  public_token: "token-joao",
   category: "A",
   instructor_id: 1,
   total_classes: 20,

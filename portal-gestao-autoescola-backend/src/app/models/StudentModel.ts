@@ -5,7 +5,6 @@ import type { Student } from "../interfaces/Student"
 interface CreateStudentData {
   name: string
   whatsapp: string
-  public_token: string
   category: string
   instructor_id: number
   total_classes: number
@@ -21,12 +20,11 @@ interface UpdateStudentData {
 export class StudentModel {
   static async create(data: CreateStudentData): Promise<Student> {
     const [result] = await pool.query<ResultSetHeader>(
-      `INSERT INTO students (name, whatsapp, public_token, category, instructor_id, total_classes)
-       VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO students (name, whatsapp, category, instructor_id, total_classes)
+       VALUES (?, ?, ?, ?, ?)`,
       [
         data.name,
         data.whatsapp,
-        data.public_token,
         data.category,
         data.instructor_id,
         data.total_classes,

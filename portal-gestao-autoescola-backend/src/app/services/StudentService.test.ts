@@ -3,7 +3,6 @@ import { StudentModel } from "../models/StudentModel"
 import { InstructorModel } from "../models/InstructorModel"
 import { EvaluationModel } from "../models/EvaluationModel"
 import { StudentService } from "./StudentService"
-import * as publicTokenUtils from "../utils/generatePublicToken"
 
 jest.mock("../models/StudentModel")
 jest.mock("../models/InstructorModel")
@@ -12,7 +11,6 @@ jest.mock("../models/EvaluationModel")
 const mockedStudent = StudentModel as jest.Mocked<typeof StudentModel>
 const mockedInstructor = InstructorModel as jest.Mocked<typeof InstructorModel>
 const mockedEvaluation = EvaluationModel as jest.Mocked<typeof EvaluationModel>
-const generatePublicTokenSpy = jest.spyOn(publicTokenUtils, "generatePublicToken")
 
 const instructor: PublicInstructor = {
   id: 1,
@@ -28,12 +26,10 @@ describe("StudentService.create", () => {
   beforeEach(() => jest.clearAllMocks())
 
   it("cria aluno com a categoria escolhida no cadastro", async () => {
-    generatePublicTokenSpy.mockReturnValue("token-publico-123")
     mockedStudent.create.mockResolvedValue({
       id: 10,
       name: "Joao",
       whatsapp: "5511999999999",
-      public_token: "token-publico-123",
       category: "A",
       instructor_id: 1,
       total_classes: 20,
@@ -53,7 +49,6 @@ describe("StudentService.create", () => {
         category: "B",
         instructor_id: 1,
         whatsapp: "5511999999999",
-        public_token: "token-publico-123",
       }),
     )
     expect(result.whatsapp).toBe("5511999999999")
@@ -64,7 +59,6 @@ describe("StudentService.create", () => {
       id: 11,
       name: "Maria",
       whatsapp: "5585989551746",
-      public_token: "token-maria",
       category: "A",
       instructor_id: 1,
       total_classes: 20,
@@ -87,7 +81,6 @@ describe("StudentService.create", () => {
       id: 10,
       name: "Joao",
       whatsapp: "5511999999999",
-      public_token: "token-joao",
       category: "A",
       instructor_id: 1,
       total_classes: 20,
@@ -99,7 +92,6 @@ describe("StudentService.create", () => {
       id: 10,
       name: "Joao Pedro",
       whatsapp: "5585989551746",
-      public_token: "token-joao",
       category: "A",
       instructor_id: 1,
       total_classes: 25,
@@ -140,7 +132,6 @@ describe("StudentService.create", () => {
       id: 10,
       name: "Joao",
       whatsapp: "5511999999999",
-      public_token: "token-joao",
       category: "A",
       instructor_id: 1,
       total_classes: 20,
@@ -151,7 +142,6 @@ describe("StudentService.create", () => {
       id: 11,
       name: "Maria",
       whatsapp: "5585989551746",
-      public_token: "token-maria",
       category: "A",
       instructor_id: 1,
       total_classes: 20,
@@ -178,7 +168,6 @@ describe("StudentService.getPublicDashboard", () => {
       id: 10,
       name: "Joao",
       whatsapp: "5511999999999",
-      public_token: "token-joao",
       category: "A",
       instructor_id: 1,
       total_classes: 20,
@@ -230,7 +219,6 @@ describe("StudentService.getPublicDashboard", () => {
       id: 10,
       name: "Joao",
       whatsapp: "5511999999999",
-      public_token: "token-joao",
       category: "A",
       instructor_id: 1,
       total_classes: 20,
@@ -286,7 +274,6 @@ describe("StudentService.listByInstructor", () => {
         id: 10,
         name: "Aluno antigo",
         whatsapp: "5511999999999",
-        public_token: "token-antigo",
         category: "A",
         instructor_id: 1,
         total_classes: 20,
@@ -297,7 +284,6 @@ describe("StudentService.listByInstructor", () => {
         id: 11,
         name: "Aluno recente",
         whatsapp: "5585989551746",
-        public_token: "token-recente",
         category: "A",
         instructor_id: 1,
         total_classes: 20,
