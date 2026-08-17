@@ -1,18 +1,27 @@
 import { app } from "./app"
 import { env } from "./app/config/env"
 import { testConnection } from "./app/config/database"
+import { logger } from "./app/utils/logger"
 
 async function bootstrap(): Promise<void> {
   try {
     await testConnection()
-    console.log("[v0] Conexao com MySQL estabelecida")
+    logger.info("database_connection_established", {
+      environment: env.nodeEnv,
+      databasePort: env.database.port,
+    })
   } catch (error) {
-    console.error("[v0] Falha ao conectar ao MySQL:", error)
-    console.error("[v0] Verifique as variaveis de ambiente do banco no arquivo .env")
+    logger.error("database_connection_failed", error, {
+      environment: env.nodeEnv,
+      databasePort: env.database.port,
+    })
   }
 
   app.listen(env.port, () => {
-    console.log(`[v0] Servidor rodando em http://localhost:${env.port}`)
+    logger.info("server_started", {
+      environment: env.nodeEnv,
+      port: env.port,
+    })
   })
 }
 

@@ -1,13 +1,25 @@
 import type { Request, Response } from "express"
 import { AppError } from "../exceptions/AppError"
 import { StudentService } from "../services/StudentService"
+import { logger } from "../utils/logger"
 import { createStudentSchema, updateStudentSchema } from "../validators/student.validator"
 
 export class StudentController {
   static async create(req: Request, res: Response): Promise<Response> {
     if (!req.instructor) throw new AppError("Sessão expirada. Entre novamente.", 401)
     const data = createStudentSchema.parse(req.body)
+    logger.info("student_creation_requested", {
+      requestId: req.requestId,
+      instructorId: req.instructor.id,
+      category: data.category,
+      totalClasses: data.total_classes,
+    })
     const student = await StudentService.create(req.instructor, data)
+    logger.info("student_created", {
+      requestId: req.requestId,
+      instructorId: req.instructor.id,
+      studentId: student.id,
+    })
     return res.status(201).json(student)
   }
 
